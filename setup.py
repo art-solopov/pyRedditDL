@@ -11,5 +11,11 @@ setup(
     author="Artemiy Solopov",
     author_email="art-solopov@yandex.ru",
     description="Program for automatic download of Reddit saved links",
-    license="GNU GPL v3"
+    license="GNU GPL v3",
+
+    entry_points={
+        'console_scripts': [
+            'py_reddit_dl = pyredditdl.main.main'
+        ]
+    }
 )
