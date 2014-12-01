@@ -1,11 +1,22 @@
 import json
 import yaml
+import argparse
 import requests
 
-class RedditTalker:
-    def __init__(self, config):
-        with open(config, 'r') as cfg_file:
-            self.config = yaml.load(cfg_file.read())
+def get_link_list(username, password):
+    pass
+
+def get_processors():
+    pass
 
 def main():
-    print("Hello world!")
+    # Parse arguments
+    username = ''
+    password = ''
+    link_list = get_link_list(username, password)
+    processors = get_processors()
+    for link in link_list:
+        for proc in processors:
+            if proc.is_processable(link):
+                proc.process(link)
+                break
