@@ -16,5 +16,11 @@ setup(
     install_requires=[
         'praw>=2.1.19',
         'PyYAML>=3.11',
-    ]
+    ],
+
+    entry_points={
+        'console_scripts': [
+            'py_reddit_dl = pyredditdl.main.main'
+        ]
+    }
 )
