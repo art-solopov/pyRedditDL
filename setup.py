@@ -11,5 +11,10 @@ setup(
     author="Artemiy Solopov",
     author_email="art-solopov@yandex.ru",
     description="Program for automatic download of Reddit saved links",
-    license="GNU GPL v3"
+    license="GNU GPL v3",
+
+    install_requires=[
+        'praw>=2.1.19',
+        'PyYAML>=3.11',
+    ]
 )
