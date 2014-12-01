@@ -14,8 +14,8 @@ setup(
     license="GNU GPL v3",
 
     install_requires=[
-        'praw>=2.1.19',
         'PyYAML>=3.11',
+        'requests>=2.4.3',
     ],
 
     entry_points={

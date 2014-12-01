@@ -1,5 +1,7 @@
 # Install the development dependencies
 ipython
+pylint
+jedi
 
 # Install the project dependencies
 -e .
