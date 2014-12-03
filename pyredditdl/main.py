@@ -6,8 +6,10 @@ import requests.auth as reqa
 import os
 from os.path import join as pjoin
 
+HOME = os.environ['HOME']
 DEFAULT_VALUES = {
-    'config': pjoin(os.environ['HOME'], 'pyredditdl.yml'),
+    'config': pjoin(HOME, 'pyredditdl.yml'),
+    'dir': pjoin(HOME, 'Reddit'),
 }
 
 def get_link_list(username, password, client_id, secret):
@@ -30,13 +32,23 @@ def get_link_list(username, password, client_id, secret):
     return response.json()
 
 def get_processors():
-    pass
+    return []
 
 def main():
     # Parse arguments
-    username = ''
-    password = ''
-    link_list = get_link_list(username, password)
+    parser = argparse.ArgumentParser()
+    parser.parse_args()
+
+    config = DEFAULT_VALUES
+    cfg_path = config['config']
+    config.update(yaml.load(open(cfg_path)))
+
+    username = config['username']
+    password = config['password']
+    client_id = config['client_id']
+    secret = config['secret']
+
+    link_list = get_link_list(username, password, client_id, secret)
     processors = get_processors()
     for link in link_list:
         for proc in processors:

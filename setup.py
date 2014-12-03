@@ -20,7 +20,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'py_reddit_dl = pyredditdl.main.main'
+            'py_reddit_dl = pyredditdl.main:main'
         ]
     }
 )
