@@ -21,6 +21,10 @@ setup(
     entry_points={
         'console_scripts': [
             'py_reddit_dl = pyredditdl.main:main'
-        ]
+        ],
+        'reddit_link_processors':
+            [
+                'image = pyredditdl.processors:ImageProcessor',
+            ]
     }
 )
