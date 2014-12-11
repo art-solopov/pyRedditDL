@@ -16,6 +16,7 @@ setup(
     install_requires=[
         'PyYAML>=3.11',
         'requests>=2.4.3',
+        'Pillow>=2.6',
     ],
 
     entry_points={
@@ -25,6 +26,7 @@ setup(
         'reddit_link_processors':
             [
                 'image = pyredditdl.processors:ImageProcessor',
+                'log = pyredditdl.processors:LogProcessors'
             ]
     }
 )
