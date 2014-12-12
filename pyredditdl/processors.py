@@ -16,7 +16,7 @@ class BaseProcessor:
     '''The higher the priority value, the higher will the plugin stand in the
     responsibility queue'''
     priority = 0
-    
+
     def __init__(self, reddit_obj):
         self.reddit_obj = reddit_obj
         self.url = reddit_obj['data']['url']

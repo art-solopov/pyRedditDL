@@ -26,7 +26,7 @@ setup(
         'reddit_link_processors':
             [
                 'image = pyredditdl.processors:ImageProcessor',
-                'log = pyredditdl.processors:LogProcessors'
+                'log = pyredditdl.processors:LogProcessor'
             ]
     }
 )

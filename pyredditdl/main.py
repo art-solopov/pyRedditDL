@@ -3,9 +3,12 @@ import yaml
 import argparse
 from pyredditdl.config import config, DEFAULT_CONFIG_PATH
 from pyredditdl.reddit import get_link_list
+import pkg_resources
 
 def get_processors():
-    return []
+    procs = [e.load() for e in pkg_resources.iter_entry_points('reddit_link_processors')]
+    procs.sort(key=lambda x: x.priority, reverse=True)
+    return procs
 
 def main():
     # Parse arguments
