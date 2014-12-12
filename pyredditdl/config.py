@@ -2,8 +2,9 @@ import os
 from os.path import join as pjoin
 HOME = os.environ['HOME']
 
+DEFAULT_CONFIG_PATH = pjoin(HOME, 'pyredditdl.yml')
+
 DEFAULT_VALUES = {
-    'config': pjoin(HOME, 'pyredditdl.yml'),
     'dir': pjoin(HOME, 'Reddit'),
 }
 
