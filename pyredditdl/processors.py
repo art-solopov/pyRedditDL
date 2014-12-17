@@ -46,9 +46,11 @@ class ImageProcessor(BaseProcessor):
         with fdopen(tmpfd, 'wb') as tmpf:
             tmpf.write(response.content)
         img = Image.open(tmpfname)
-        ext = mimetypes.guess_extension('image/' + img.format.lower())
-        filename = os.path.basename(self.url) + ext
-        img.save(os.path.join(config['dir'], filename))
+        filename = os.path.basename(self.url)
+        path = os.path.join(config['dir'], self.subreddit)
+        if not os.path.exists(path):
+            os.mkdir(path)
+        img.save(os.path.join(path, filename))
 
 class LogProcessor(BaseProcessor):
     '''Logs the urls. Should always be the last one in the queue'''

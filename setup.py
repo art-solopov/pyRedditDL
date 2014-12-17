@@ -19,6 +19,12 @@ setup(
         'Pillow>=2.6',
     ],
 
+    tests_require=[
+        'nose>=1.3',
+    ],
+
+    test_suite='nose.collector',
+
     entry_points={
         'console_scripts': [
             'py_reddit_dl = pyredditdl.main:main'
