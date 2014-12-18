@@ -21,6 +21,7 @@ class BaseProcessor:
         self.reddit_obj = reddit_obj
         self.url = reddit_obj['data']['url']
         self.subreddit = reddit_obj['data']['subreddit']
+        self.path = os.path.join(config['dir'], self.subreddit)
 
     def is_processable(self):
         '''This function determines whether this processor is suitable for processing
@@ -29,7 +30,8 @@ class BaseProcessor:
 
     def process(self):
         '''This function is used to process the Reddit object'''
-        raise NotImplementedError
+        if not os.path.exists(self.path):
+            os.mkdir(self.path)
 
 class ImageProcessor(BaseProcessor):
     '''Saves the image files'''
@@ -41,16 +43,14 @@ class ImageProcessor(BaseProcessor):
         return (mime_type is not None) and (mime_type.startswith('image'))
 
     def process(self):
+        super().process()
         response = get(self.url)
         tmpfd, tmpfname = mkstemp(prefix='tmp_pyredditdl_')
         with fdopen(tmpfd, 'wb') as tmpf:
             tmpf.write(response.content)
         img = Image.open(tmpfname)
         filename = os.path.basename(self.url)
-        path = os.path.join(config['dir'], self.subreddit)
-        if not os.path.exists(path):
-            os.mkdir(path)
-        img.save(os.path.join(path, filename))
+        img.save(os.path.join(self.path, filename))
 
 class LogProcessor(BaseProcessor):
     '''Logs the urls. Should always be the last one in the queue'''
@@ -59,6 +59,7 @@ class LogProcessor(BaseProcessor):
         return True
 
     def process(self):
+        super().process()
         fname = os.path.join(config['dir'], self.subreddit, '__not_saved.log')
         with open(fname, 'a') as logf:
             logf.write(self.url + "\n")

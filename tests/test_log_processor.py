@@ -3,9 +3,9 @@ import tempfile
 import os.path
 
 import pyredditdl.config
-from pyredditdl.processors import ImageProcessor
+from pyredditdl.processors import LogProcessor
 
-class TestImageProcessor(unittest.TestCase):
+class TestLogProcessor(unittest.TestCase):
 
     def setUp(self):
         self.reddit_object = {
@@ -18,14 +18,18 @@ class TestImageProcessor(unittest.TestCase):
                 # TODO fill more fields
             }
         }
+
         self.resdir = tempfile.mkdtemp('pyredditdl-test')
         pyredditdl.config.config['dir'] = self.resdir
 
-        self.imgproc = ImageProcessor(self.reddit_object)
+        self.logproc = LogProcessor(self.reddit_object)
 
-    def test_save(self):
-        self.assertTrue(self.imgproc.is_processable())
-        self.imgproc.process()
-        self.assertTrue(os.path.exists(os.path.join(self.resdir, 'example')))
-        self.assertEqual(os.listdir(os.path.join(self.resdir, 'example')), ['building.jpg'])
 
+
+    def test_log(self):
+        self.assertTrue(self.logproc.is_processable())
+        self.logproc.process()
+        logpath = os.path.join(self.resdir, 'example', '__not_saved.log')
+        self.assertTrue(os.path.exists(logpath))
+        with open(logpath) as logf:
+            self.assertEqual(list(logf), [self.logproc.url + "\n"])
