@@ -21,7 +21,7 @@ def authentication_headers(username, password, client_id, secret, user_agent=Non
     headers['Authorization'] = auth_token
     return headers
 
-def get_link_list(username, password, client_id, secret):
+def get_obj_list(username, password, client_id, secret):
     headers = authentication_headers(username, password, client_id, secret)
     response = req.get('https://oauth.reddit.com/user/{0}/saved'.format(username), headers=headers)
-    return response.json()
+    return response.json()['data']['children']

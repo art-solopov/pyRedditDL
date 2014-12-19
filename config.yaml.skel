@@ -1,6 +1,6 @@
 ---
 dir:
-logfile:
+logpath:
 username:
 password:
 client_id:

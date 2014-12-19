@@ -61,3 +61,4 @@ target/
 *~
 config.yaml
 vim-tags
+config.test*

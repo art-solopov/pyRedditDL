@@ -2,7 +2,8 @@ import json
 import yaml
 import argparse
 from pyredditdl.config import config, DEFAULT_CONFIG_PATH
-from pyredditdl.reddit import get_link_list
+from pyredditdl.reddit import get_obj_list
+from pyredditdl.logging import last_link, init_log, log
 import pkg_resources
 
 def get_processors():
@@ -33,10 +34,15 @@ def main():
     client_id = config['client_id']
     secret = config['secret']
 
-    link_list = get_link_list(username, password, client_id, secret)
+    obj_list = get_obj_list(username, password, client_id, secret)
     processors = get_processors()
-    for link in link_list:
-        for proc in processors:
-            if proc.is_processable(link):
-                proc.process(link)
+    init_log()
+    for obj in obj_list:
+        if obj['data']['url'] == last_link:
+            break
+        for pr_cls in processors:
+            proc = pr_cls(obj)
+            if proc.is_processable():
+                proc.process()
                 break
+        log(obj)
