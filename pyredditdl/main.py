@@ -2,7 +2,7 @@ import json
 import yaml
 import argparse
 from pyredditdl.config import config, DEFAULT_CONFIG_PATH
-from pyredditdl.reddit import get_obj_list
+from pyredditdl.reddit import Reddit
 from pyredditdl.logging import last_link, init_log, log
 import pkg_resources
 
@@ -34,7 +34,10 @@ def main():
     client_id = config['client_id']
     secret = config['secret']
 
-    obj_list = get_obj_list(username, password, client_id, secret)
+    reddit = Reddit(username, password, client_id, secret)
+    reddit.authenticate()
+    obj_list = reddit.get_obj_list()
+
     processors = get_processors()
     init_log()
     for obj in obj_list:
