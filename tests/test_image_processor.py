@@ -3,24 +3,13 @@ import tempfile
 import os.path
 
 import pyredditdl.config
+from tests.processor_common_test import ProcessorCommonTest
 from pyredditdl.processors import ImageProcessor
 
-class TestImageProcessor(unittest.TestCase):
+class TestImageProcessor(ProcessorCommonTest):
 
     def setUp(self):
-        self.reddit_object = {
-            'kind': 't3',
-            'data': {
-                'subreddit': 'example',
-                'title': "Example Subreddit object",
-                'url': 'http://loremflickr.com/320/240/building.jpg',
-                # TODO move the example in a separate object
-                # TODO fill more fields
-            }
-        }
-        self.resdir = tempfile.mkdtemp('pyredditdl-test')
-        pyredditdl.config.config['dir'] = self.resdir
-
+        super().setUp()
         self.imgproc = ImageProcessor(self.reddit_object)
 
     def test_save(self):
