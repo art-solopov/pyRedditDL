@@ -1,5 +1,6 @@
 import requests as req
 import requests.auth as reqa
+from copy import copy
 
 class Reddit:
     def __init__(self, username, password, client_id, secret):
@@ -13,6 +14,7 @@ class Reddit:
 
     def authenticate(self):
         client_auth = reqa.HTTPBasicAuth(self.client_id, self.secret)
+        headers = copy(self.headers)
         post_data = {
             'grant_type': 'password',
             'username': self.username,
@@ -21,7 +23,7 @@ class Reddit:
         auth_resp = req.post('https://ssl.reddit.com/api/v1/access_token',
                              data=post_data,
                              auth=client_auth,
-                             headers=self.headers)
+                             headers=headers)
         if auth_resp.status_code >= 400:
             raise RedditAuthError()
         auth_resp_body = auth_resp.json()

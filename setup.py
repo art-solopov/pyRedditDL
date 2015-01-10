@@ -21,6 +21,7 @@ setup(
 
     tests_require=[
         'nose>=1.3',
+        'mock>=1.0',
     ],
 
     test_suite='nose.collector',
