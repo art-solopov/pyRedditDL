@@ -49,6 +49,8 @@ class ImageProcessor(BaseProcessor):
         with fdopen(tmpfd, 'wb') as tmpf:
             tmpf.write(response.content)
         img = Image.open(tmpfname)
+        if img.mode == 'P':
+            img = img.convert('RGB')
         filename = os.path.basename(self.url)
         img.save(os.path.join(self.path, filename))
 
